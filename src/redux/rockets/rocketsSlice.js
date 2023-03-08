@@ -41,6 +41,7 @@ const rocketsSlice = createSlice({
       })
       .addCase(getRockets.rejected, (state) => {
         state.isLoading = false;
+        state.rockets = [];
       });
   },
 });
