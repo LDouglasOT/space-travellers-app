@@ -1,8 +1,20 @@
 import React from "react";
 import "../styles.css";
+import { useSelector } from "react-redux";
 
+const getReseved = (rocket) => {
+  if (rocket.reserved) {
+    return (
+      <tr key={rocket}>
+        <td className="separator">{rocket.rocket_name}</td>
+      </tr>
+    );
+  }
+  return null;
+};
 function MyProfilePage() {
-
+  const { rockets } = useSelector((state) => state.rockets);
+  // const { missions } = useSelector((state) => state.missions);
   return (
     <div className="main-wrap">
       <div className="list-wrap">
