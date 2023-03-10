@@ -29,16 +29,6 @@ const getJoinedMission = (mission) => {
   return null;
 };
 
-const getActiveMissions = (mission) => {
-  if (mission.active) {
-    return (
-      <tr key={mission}>
-        <td className="separator">{mission.mission_name}</td>
-      </tr>
-    );
-  }
-  return null;
-};
 function MyProfilePage() {
   const { rockets } = useSelector((state) => state.rockets);
   const { missions } = useSelector((state) => state.mission);
@@ -48,7 +38,6 @@ function MyProfilePage() {
       <div className="list-wrap">
         <h3>My Missions</h3>
         <table className="bordered rounded">
-
           {missions.map((mission) => getJoinedMission(mission))}
           {missions.length === 0 && (
             <tr>
@@ -59,7 +48,6 @@ function MyProfilePage() {
               </td>
             </tr>
           )}
-
         </table>
       </div>
       <div className="list-wrapx">
