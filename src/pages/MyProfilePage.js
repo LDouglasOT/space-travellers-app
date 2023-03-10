@@ -12,14 +12,28 @@ const getReseved = (rocket) => {
   }
   return null;
 };
+const getActiveMissions = (mission) => {
+  if (mission.active) {
+    return (
+      <tr key={mission}>
+        <td className="separator">{mission.mission_name}</td>
+      </tr>
+    );
+  }
+  return null;
+};
 function MyProfilePage() {
   const { rockets } = useSelector((state) => state.rockets);
-  // const { missions } = useSelector((state) => state.missions);
+  const { missions } = useSelector((state) => state.mission);
   return (
     <div className="main-wrap">
       <div className="list-wrap">
         <h3>My Missions</h3>
-        <table className="bordered rounded" />
+        <table className="bordered rounded">
+          {missions.map((mission) => (
+            getActiveMissions(mission)
+          ))}
+        </table>
       </div>
       <div className="list-wrapx">
         <h3>My Rockets</h3>
