@@ -8,7 +8,6 @@ const {
 
 function MissionsPage() {
   const { missions } = useSelector((state) => state.mission);
-  console.log("Nissions", missions);
 
   const dispatch = useDispatch();
   useEffect(() => {
