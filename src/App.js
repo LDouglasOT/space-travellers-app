@@ -9,7 +9,7 @@ import MissionsPage from "./pages/MissionsPage";
 import MyProfilePage from "./pages/MyProfilePage";
 import RocketsPage from "./pages/RocketsPage";
 
-const router = createBrowserRouter(
+export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
       <Route index element={<RocketsPage />} />

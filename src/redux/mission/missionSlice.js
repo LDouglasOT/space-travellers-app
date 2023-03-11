@@ -1,6 +1,7 @@
+/* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-/* eslint no-param-reassign: "error" */
+
 const API_URL = "https://api.spacexdata.com/v3/missions";
 
 export const getMissions = createAsyncThunk(
@@ -16,28 +17,30 @@ export const getMissions = createAsyncThunk(
     }
   }
 );
+
 const initialState = {
   isLoading: false,
   missions: [],
 };
+
 const missionsSlice = createSlice({
   name: "missions",
   initialState,
   reducers: {
-    reserveRocket: (state, action) => {
+    joinMission: (state, action) => {
       const { id } = action.payload;
-      const newState = state.missions.map((rocket) => {
-        if (`${rocket.id}` !== id) return rocket;
-        return { ...rocket, reserved: true };
+      const newState = state.missions.map((mission) => {
+        if (`${mission.mission_id}` !== id) return mission;
+        return { ...mission, active: true };
       });
 
       state.missions = newState;
     },
-    cancelRocketReservation: (state, action) => {
+    leaveMission: (state, action) => {
       const { id } = action.payload;
-      const newState = state.missions.map((rocket) => {
-        if (`${rocket.id}` !== id) return rocket;
-        return { ...rocket, reserved: false };
+      const newState = state.missions.map((mission) => {
+        if (`${mission.mission_id}` !== id) return mission;
+        return { ...mission, active: false };
       });
 
       state.missions = newState;
@@ -52,7 +55,7 @@ const missionsSlice = createSlice({
       .addCase(getMissions.fulfilled, (state, action) => {
         state.isLoading = false;
         const res = action.payload;
-        console.log(res);
+
         state.missions = res;
       })
       .addCase(getMissions.rejected, (state) => {
@@ -62,5 +65,5 @@ const missionsSlice = createSlice({
   },
 });
 
-export const missionActions = missionsSlice.actions;
+export const missionsActions = missionsSlice.actions;
 export default missionsSlice.reducer;
