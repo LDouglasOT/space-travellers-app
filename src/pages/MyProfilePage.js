@@ -2,43 +2,6 @@ import React from "react";
 import "../styles.css";
 import { useSelector } from "react-redux";
 
-const getReserved = (rocket) => {
-  if (rocket.reserved) {
-    return (
-      <tr key={rocket}>
-        <td className="separator">{rocket.rocket_name}</td>
-      </tr>
-    );
-  }
-
-  return null;
-  // return (
-
-  // );
-};
-
-const getJoinedMission = (mission) => {
-  if (mission.active) {
-    return (
-      <tr key={mission}>
-        <td className="separator">{mission.mission_name}</td>
-      </tr>
-    );
-  }
-
-  return null;
-};
-
-const getActiveMissions = (mission) => {
-  if (mission.active) {
-    return (
-      <tr key={mission}>
-        <td className="separator">{mission.mission_name}</td>
-      </tr>
-    );
-  }
-  return null;
-};
 function MyProfilePage() {
   const { rockets } = useSelector((state) => state.rockets);
   const { missions } = useSelector((state) => state.mission);
@@ -49,7 +12,11 @@ function MyProfilePage() {
         <h3>My Missions</h3>
         <table className="bordered rounded">
 
-          {missions.map((mission) => getJoinedMission(mission))}
+          {missions.filter((mission) => mission.active === true).map((mission) => (
+            <tr key={mission}>
+              <td className="separator">{mission.mission_name}</td>
+            </tr>
+          ))}
           {missions.length === 0 && (
             <tr>
               <td>
@@ -65,7 +32,11 @@ function MyProfilePage() {
       <div className="list-wrapx">
         <h3>My Rockets</h3>
         <table className="bordered rounded">
-          {rockets.map((rocket) => getReserved(rocket))}
+          {rockets.filter((rock) => rock.reserved === true).map((rocket) => (
+            <tr key={rocket}>
+              <td className="separator">{rocket.rocket_name}</td>
+            </tr>
+          ))}
           {rockets.length === 0 && (
             <tr>
               <td>
